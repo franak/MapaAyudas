@@ -75,7 +75,7 @@ node test-endpoints.js http://localhost:3000
 DEBUG=* npm start
 ```
 
-### En el Servidor Remoto (ayudas.isamart.es)
+### En el Servidor Remoto ([ayudas.isamart.es](https://isamart.es/mapaayudas/))
 
 1. **Hacer pull de los cambios**:
    ```bash
@@ -98,13 +98,13 @@ DEBUG=* npm start
 3. **Verificar que funciona** (desde shell/terminal):
    ```bash
    # Health check
-   curl -i https://ayudas.isamart.es/health
+   curl -i https://isamart.es/mapaayudas/health
    
    # Status de sincronización
-   curl -i https://ayudas.isamart.es/excel/status
+   curl -i https://isamart.es/mapaayudas/excel/status
    
    # Forzar sincronización
-   curl -i -X POST https://ayudas.isamart.es/excel/sync
+   curl -i -X POST https://isamart.es/mapaayudas/excel/sync
    ```
 
 ---
@@ -115,10 +115,10 @@ DEBUG=* npm start
 
 ```bash
 # Esto debe devoler JSON, NO HTML
-curl -H "Accept: application/json" https://ayudas.isamart.es/excel/status
+curl -H "Accept: application/json" https://isamart.es/mapaayudas/excel/status
 
 # Ver los headers
-curl -i https://ayudas.isamart.es/excel
+curl -i https://isamart.es/mapaayudas/excel
 ```
 
 ### Ver los logs del servidor

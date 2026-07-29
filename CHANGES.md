@@ -4,7 +4,6 @@
 
 ```
 ❌ Error 1: Unexpected token '<', "<!DOCTYPE"... is not valid JSON
-❌ Error 2: POST https://ayudas.isamart.es/excel/sync → 404 (Not Found)
 ```
 
 El servidor estaba devolviendo **HTML en lugar de JSON** en respuestas de error.
@@ -173,7 +172,7 @@ Documentación completa de resolución de problemas con checklists y comandos.
 
 3. **Verificar**:
    ```bash
-   node test-endpoints.js https://ayudas.isamart.es
+   node test-endpoints.js https://isamart.es/mapaayudas/
    ```
 
 ---
