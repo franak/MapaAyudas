@@ -75,7 +75,7 @@ node test-endpoints.js http://localhost:3000
 DEBUG=* npm start
 ```
 
-### En el Servidor Remoto ([ayudas.isamart.es](https://isamart.es/mapaayudas/))
+### En el Servidor Remoto ([Mapa de ayudas](https://isamart.es/mapaayudas/))
 
 1. **Hacer pull de los cambios**:
    ```bash
