@@ -33,12 +33,8 @@ app.get('/confirm', (req, res) => {
 });
 
 
-// ── Fallback → frontend ──────────────────────────────────────────────────────
-app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/excel') || req.path === '/health' || req.path === '/confirm') return next();
-  if (req.path.startsWith('/landing')) return next(); // Allow micro-apps to be served
-  res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
-});
+// ── Redirección 301 de la antigua URL con guion (estaba indexada como canonical) ──
+app.get(/^\/mapa-ayudas(\/.*)?$/, (_req, res) => res.redirect(301, '/mapaayudas/'));
 
 // ── Catch unhandled routes for /excel (POST, DELETE, etc.) ─────────────────
 app.use('/excel', (req, res) => {
@@ -49,8 +45,13 @@ app.use('/excel', (req, res) => {
   });
 });
 
-// ── 404 ──────────────────────────────────────────────────────────────────────
-app.use((_req, res) => res.status(404).json({ error: 'Route not found' }));
+// ── 404 real (sin "soft 404"): HTML para navegadores, JSON para la API ────────
+app.use((req, res) => {
+  if (req.accepts(['html', 'json']) === 'html' && !req.path.startsWith('/excel')) {
+    return res.status(404).sendFile(path.join(PUBLIC_DIR, '404.html'));
+  }
+  res.status(404).json({ error: 'Route not found' });
+});
 
 // ── Environment validation ──────────────────────────────────────────────────
 function validateEnv() {

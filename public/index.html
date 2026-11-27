@@ -7,7 +7,7 @@
   <title>ISAMART - Mapa de Ayudas para Rehabilitación Energética Madrid</title>
   <meta name="description"
     content="Descubre todas las subvenciones y ayudas para rehabilitación energética en Madrid. ISAMART te ayuda como agente rehabilitador a obtener las mejores ayudas para tu proyecto." />
-  <link rel="canonical" href="https://isamart.es/mapaayudas/" />
+  <link rel="canonical" href="https://isamart.es/" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,38 +18,52 @@
   <meta property="og:title" content="ISAMART - Mapa de Ayudas Rehabilitación Energética Madrid" />
   <meta property="og:description"
     content="Descubre todas las subvenciones y ayudas para rehabilitación energética en Madrid. ISAMART te ayuda como agente rehabilitador." />
-  <meta property="og:url" content="https://isamart.es/mapaayudas/" />
-  <meta property="og:image" content="/landing/og-image.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="ISAMART Rehabilitación Energética" />
+  <meta property="og:url" content="https://isamart.es/" />
+  <meta property="og:image" content="https://isamart.es/landing/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ISAMART - Mapa de Ayudas Rehabilitación Energética Madrid" />
   <meta name="twitter:description"
     content="Descubre todas las subvenciones y ayudas para rehabilitación energética en Madrid." />
-  <meta name="twitter:image" content="/landing/og-image.svg" />
+  <meta name="twitter:image" content="https://isamart.es/landing/og-image.jpg" />
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ISAMART - Mapa de Ayudas Rehabilitación Energética",
-    "url": "https://isamart.es/mapaayudas/",
-    "description": "Descubre todas las subvenciones y ayudas para rehabilitación energética en Madrid",
-    "publisher": {
-      "@type": "Organization",
-      "name": "ISAMART",
-      "url": "https://isamart.es"
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://isamart.es/mapaayudas/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://isamart.es/#organization",
+        "name": "ISAMART",
+        "legalName": "REHABILITACION ENERGETICA I S A M A R T, SL",
+        "url": "https://isamart.es/",
+        "logo": "https://isamart.es/recursos/IsamartLargoTexto.png",
+        "email": "contacto@isamart.es",
+        "telephone": "+34615469845",
+        "areaServed": { "@type": "AdministrativeArea", "name": "Comunidad de Madrid" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://isamart.es/#website",
+        "name": "ISAMART - Mapa de Ayudas Rehabilitación Energética",
+        "url": "https://isamart.es/",
+        "inLanguage": "es",
+        "description": "Descubre todas las subvenciones y ayudas para rehabilitación energética en Madrid",
+        "publisher": { "@id": "https://isamart.es/#organization" }
+      }
+    ]
   }
   </script>
 
   <!-- Estilos -->
   <link rel="preload" href="/landing/css/landing.css" as="style" />
   <link rel="stylesheet" href="/landing/css/landing.css" />
+  <script src="/js/analytics.js" defer></script>
 </head>
 
 <body>
