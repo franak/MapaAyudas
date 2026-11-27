@@ -36,6 +36,15 @@ app.get('/confirm', (req, res) => {
 // ── Redirección 301 de la antigua URL con guion (estaba indexada como canonical) ──
 app.get(/^\/mapa-ayudas(\/.*)?$/, (_req, res) => res.redirect(301, '/mapaayudas/'));
 
+// ── Catch unhandled routes for /excel (POST, DELETE, etc.) ─────────────────
+app.use('/excel', (req, res) => {
+  res.status(404).json({ 
+    error: 'Endpoint not found',
+    method: req.method,
+    path: req.path
+  });
+});
+
 // ── 404 real (sin "soft 404"): HTML para navegadores, JSON para la API ────────
 app.use((req, res) => {
   if (req.accepts(['html', 'json']) === 'html' && !req.path.startsWith('/excel')) {
@@ -57,12 +66,16 @@ validateEnv();
 
 // ── Error handler ────────────────────────────────────────────────────────────
 app.use((err, req, res, _next) => {
-  const status = err.statusCode || 500;
+  // Always set JSON content type
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  
+  const status = err.statusCode || err.status || 500;
   const isProd = process.env.NODE_ENV === 'production';
 
   console.error(`[ERROR] ${req.method} ${req.url} - ${err.message}`);
   if (!isProd && err.stack) console.error(err.stack);
 
+  // Ensure we always return JSON
   res.status(status).json({
     ok: false,
     error: err.message || 'Error interno del servidor',
