@@ -1,0 +1,11 @@
+# Rendimiento de los artículos publicados. Se rellena a mano cada mes con
+# Google Search Console (impresiones, clics, posición) y GA4 (eventos generate_lead).
+# Lo lee scripts/radar.js con: npm run radar -- --rendimiento
+# Formato de cada entrada:
+#   - articulo: slug-del-articulo
+#     periodo: 2026-12        # mes que describen los datos
+#     impresiones: 0
+#     clics: 0
+#     posicion: 0             # posición media
+#     leads: 0                # generate_lead atribuidos a la página
+articulos: []

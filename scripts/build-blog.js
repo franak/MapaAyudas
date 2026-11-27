@@ -49,9 +49,24 @@ function parseFile(file) {
   return {
     file, slug, title: String(meta.title), description: String(meta.description),
     date, updated, tags: (meta.tags || []).map(String), keyword: meta.keyword ? String(meta.keyword) : '',
-    image: meta.image ? String(meta.image) : '', draft: meta.draft === true,
+    // Portada y miniatura: por convención /recursos/blog/<slug>.jpg y <slug>-thumb.jpg
+    // (se generan con scripts/make-cover.py). "image" permite otra portada.
+    image: meta.image ? String(meta.image) : `/recursos/blog/${slug}.jpg`,
+    thumb: `/recursos/blog/${slug}-thumb.jpg`,
+    imageAlt: meta.imageAlt ? String(meta.imageAlt) : '',
+    draft: meta.draft === true,
     body, readingMin: Math.max(1, Math.round(words / 200)),
   };
+}
+
+// Todo artículo publicado debe tener portada y miniatura
+function checkImages(p) {
+  for (const u of [p.image, p.thumb]) {
+    if (/^https?:\/\//.test(u)) continue;
+    if (!fs.existsSync(path.join(ROOT, 'public', u))) {
+      throw new Error(`${p.file}: falta la imagen public${u}. Genérala con: python3 scripts/make-cover.py ${p.slug}`);
+    }
+  }
 }
 
 // ── Markdown -> HTML (h2/h3 con id para anclas) ─────────────────────────────
@@ -165,6 +180,7 @@ const ORG = { '@type': 'Organization', '@id': `${SITE}/#organization`, name: 'IS
 
 function card(p) {
   return `<article class="post-card">
+        <a class="post-thumb" href="/blog/${p.slug}/" tabindex="-1" aria-hidden="true"><img src="${p.thumb}" alt="" width="600" height="315" loading="lazy" decoding="async" /></a>
         <p class="post-meta"><time datetime="${p.date}">${fmtDate(p.date)}</time> · ${p.readingMin} min de lectura</p>
         <h2><a href="/blog/${p.slug}/">${esc(p.title)}</a></h2>
         <p>${esc(p.description)}</p>
@@ -201,6 +217,7 @@ function articlePage(p, all) {
       <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> › <a href="/blog/">Blog</a> › <span>${esc(p.title)}</span></nav>
       <h1>${esc(p.title)}</h1>
       <p class="post-meta">Publicado el <time datetime="${p.date}">${fmtDate(p.date)}</time>${p.updated !== p.date ? ` · Actualizado el <time datetime="${p.updated}">${fmtDate(p.updated)}</time>` : ''} · ${p.readingMin} min de lectura</p>
+      <figure class="post-hero"><img src="${p.image}" alt="${esc(p.imageAlt || p.title)}" width="1200" height="630" fetchpriority="high" /></figure>
       ${toc.length > 2 ? `<nav class="post-toc" aria-label="Índice"><strong>En este artículo</strong><ol>${toc.map((t) => `<li><a href="#${t.id}">${esc(t.text)}</a></li>`).join('')}</ol></nav>` : ''}
       <div class="post-content">
 ${html}
@@ -225,8 +242,10 @@ function indexPage(posts) {
   const body = `
   <main id="main" class="blog-main">
     <div class="container">
+      <div class="blog-head">
       <h1>Blog de rehabilitación energética</h1>
       <p class="lead">Guías, plazos y novedades sobre ayudas y subvenciones para rehabilitar tu vivienda o edificio en Madrid.</p>
+      </div>
       ${posts.length
         ? `<div class="post-list">${posts.map(card).join('\n')}</div>`
         : '<p class="post-empty">Estamos preparando los primeros artículos. Mientras tanto, consulta las <a href="/mapaayudas/">convocatorias abiertas</a>.</p>'}
@@ -260,6 +279,29 @@ ${items}
 `;
 }
 
+// Sección "Últimas entradas" de la home: se regenera entre <!-- blog-latest:start/end -->
+function updateHome(posts) {
+  const file = path.join(ROOT, 'public', 'index.html');
+  const START = '<!-- blog-latest:start -->', END = '<!-- blog-latest:end -->';
+  let html = fs.readFileSync(file, 'utf8');
+  if (!html.includes(START)) return console.warn('Aviso: public/index.html no tiene los marcadores blog-latest; no se actualiza la home.');
+  const latest = posts.slice(0, 3);
+  const section = latest.length
+    ? `${START}
+  <section class="lp-section blog-latest" aria-label="Últimas entradas del blog">
+    <div class="container">
+      <h2>Últimas entradas del blog</h2>
+      <p class="lead">Guías, plazos y novedades sobre ayudas para rehabilitar en Madrid.</p>
+      <div class="post-list">${latest.map(card).join('\n')}</div>
+      <p class="blog-latest-more"><a class="btn btn-secondary" href="/blog/">Ver todas las entradas</a></p>
+    </div>
+  </section>
+  ${END}`
+    : `${START}\n  ${END}`;
+  html = html.replace(new RegExp(`${START}[\\s\\S]*?${END}`), () => section);
+  fs.writeFileSync(file, html);
+}
+
 function updateSitemap(posts) {
   const START = '<!-- blog:start -->', END = '<!-- blog:end -->';
   let xml = fs.readFileSync(SITEMAP, 'utf8');
@@ -287,6 +329,8 @@ function main() {
   const future = posts.filter((p) => p.date > today && !WITH_DRAFTS);
   const live = posts.filter((p) => !future.includes(p));
 
+  live.forEach(checkImages);
+
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_DIR, { recursive: true });
   for (const p of live) {
@@ -295,6 +339,7 @@ function main() {
   }
   fs.writeFileSync(path.join(OUT_DIR, 'index.html'), indexPage(live));
   fs.writeFileSync(path.join(OUT_DIR, 'rss.xml'), rss(live));
+  updateHome(WITH_DRAFTS ? live.filter((p) => !p.draft) : live);
   // Los borradores nunca entran en el sitemap
   updateSitemap(WITH_DRAFTS ? live.filter((p) => !p.draft) : live);
 
