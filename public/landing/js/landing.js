@@ -139,6 +139,9 @@
 
         if(resp.ok && result.ok !== false){
           setStatus('¡Gracias! Tu solicitud ha sido recibida. Te contactaremos pronto.', true);
+          if (window.isamartAnalytics) {
+            window.isamartAnalytics.track('generate_lead', { form_id: 'info_home', interes: data.interes, suscripcion: data.source === 'all' });
+          }
           form.reset();
           
           // If user opted in to subscriptions, register them
@@ -337,6 +340,7 @@
   
   function setCookieConsent(accepted) {
     localStorage.setItem('cookieConsent', accepted ? 'accepted' : 'rejected');
+    if (accepted && window.isamartAnalytics) window.isamartAnalytics.grant();
     if (cookieBanner) {
       cookieBanner.style.display = 'none';
     }

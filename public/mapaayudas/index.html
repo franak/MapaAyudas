@@ -2089,6 +2089,7 @@
       }
     }
   </style>
+  <script src="/js/analytics.js" defer></script>
 </head>
 
 <body>
@@ -3110,6 +3111,7 @@
         document.getElementById('fRgpd').checked = false;
         document.getElementById('btnFormSubmit').disabled = true;
         toast('Suscripción registrada correctamente', 'ok');
+        if (window.isamartAnalytics) window.isamartAnalytics.track('subscribe_alerts', { form_id: 'alertas_mapa' });
         setTimeout(closeModal, 3500);
       } catch (e) { fb.className = 'form-feedback err'; fb.textContent = e.message; fb.style.display = 'block'; }
       finally { btn.disabled = false; btn.textContent = 'Confirmar suscripción'; }
@@ -3232,6 +3234,7 @@
         fb.textContent = '✔ Solicitud enviada. Recibirá un email de confirmación y nos pondremos en contacto pronto.';
         fb.style.display = 'block';
         toast('Solicitud enviada correctamente', 'ok');
+        if (window.isamartAnalytics) window.isamartAnalytics.track('generate_lead', { form_id: 'info_mapa', con_convocatoria: !!_infoConvData });
         setTimeout(closeInfoModal, 3500);
       } catch (e) {
         fb.className = 'form-feedback err';
@@ -3350,6 +3353,7 @@
     function closeCookieBanner(accept) {
       if (accept) {
         localStorage.setItem('cookieConsent', 'true');
+        if (window.isamartAnalytics) window.isamartAnalytics.grant();
       }
       document.getElementById('cookieBanner').style.display = 'none';
     }
