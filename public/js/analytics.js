@@ -68,7 +68,7 @@
       });
     } else if (href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) {
       track('contact_click', { contact_type: href.split(':')[0] });
-    } else if (href === '#informacion' || /^\/?mapaayudas\/?$/.test(href.replace(/^https?:\/\/[^/]+/, '')) || href.indexOf('/blog') === 0) {
+    } else if (href === '#informacion' || href === '/#informacion' || /^\/?mapaayudas\/?$/.test(href.replace(/^https?:\/\/[^/]+/, '')) || href.indexOf('/blog') === 0) {
       track('cta_click', { cta_text: text, cta_target: href });
     }
   });
