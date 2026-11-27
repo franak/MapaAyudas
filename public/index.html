@@ -63,6 +63,7 @@
   <!-- Estilos -->
   <link rel="preload" href="/landing/css/landing.css" as="style" />
   <link rel="stylesheet" href="/landing/css/landing.css" />
+  <link rel="stylesheet" href="/landing/css/blog.css" />
   <script src="/js/analytics.js" defer></script>
 </head>
 
@@ -74,6 +75,7 @@
       <img src="/recursos/IsamartLargoTexto.png" alt="ISAMART" class="lp-logo" />
       <nav class="lp-nav" aria-label="navegación principal">
         <a href="/mapaayudas/" class="anchor-link">Ver Mapa de Ayudas</a>
+        <a href="/blog/" class="anchor-link">Blog</a>
         <a href="#informacion" class="anchor-link">Solicitar información</a>
       </nav>
     </div>
@@ -497,6 +499,24 @@
     </div>
   </section>
 
+  <!-- Últimas entradas del blog (lo regenera scripts/build-blog.js) -->
+  <!-- blog-latest:start -->
+  <section class="lp-section blog-latest" aria-label="Últimas entradas del blog">
+    <div class="container">
+      <h2>Últimas entradas del blog</h2>
+      <p class="lead">Guías, plazos y novedades sobre ayudas para rehabilitar en Madrid.</p>
+      <div class="post-list"><article class="post-card">
+        <a class="post-thumb" href="/blog/deduccion-irpf-eficiencia-energetica-2026/" tabindex="-1" aria-hidden="true"><img src="/recursos/blog/deduccion-irpf-eficiencia-energetica-2026-thumb.jpg" alt="" width="600" height="315" loading="lazy" decoding="async" /></a>
+        <p class="post-meta"><time datetime="2026-11-27">27 de noviembre de 2026</time> · 3 min de lectura</p>
+        <h2><a href="/blog/deduccion-irpf-eficiencia-energetica-2026/">Deducción IRPF por eficiencia energética: 20, 40 y 60 %</a></h2>
+        <p>Requisitos, límites y plazos de la deducción del IRPF por obras de eficiencia energética en vivienda: 20 %, 40 % y 60 %, con fuente oficial del BOE.</p>
+        <p class="post-tags"><span>irpf</span><span>eficiencia-energetica</span></p>
+      </article></div>
+      <p class="blog-latest-more"><a class="btn btn-secondary" href="/blog/">Ver todas las entradas</a></p>
+    </div>
+  </section>
+  <!-- blog-latest:end -->
+
   <!-- Formulario -->
   <section class="lp-section form-section" id="informacion" aria-label="Formulario de información">
     <div class="container">
@@ -578,6 +598,7 @@
     <div class="container">
       <p>&copy; 2026 ISAMART. Todos los derechos reservados.</p>
       <p>
+        <a href="/blog/">Blog</a> ·
         <a href="/legal/aviso-legal.html">Aviso Legal</a> ·
         <a href="/legal/privacidad.html">Política de Privacidad</a> ·
         <a href="/legal/cookies.html">Política de Cookies</a>

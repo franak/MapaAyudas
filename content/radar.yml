@@ -1,0 +1,92 @@
+# Radar de contenido de ISAMART.
+# Se consulta con: npm run radar | npm run radar -- --next | npm run radar -- --check
+# Reglas: ningún importe, porcentaje o plazo se publica sin fuente oficial en "fuentes".
+# Estados: idea > verificando > redactando > publicado (o descartado).
+# Prioridad 1 = máxima. "caduca" = fecha tras la cual el tema pierde vigencia.
+# "revisar" = fecha en que hay que volver a comprobar un artículo publicado.
+
+# Qué funciona en el sector (benchmark de búsqueda, anotado el 2026-11-27).
+# Actualiza esta sección cada trimestre con lo que veas en Google/Search Console.
+benchmark:
+  fecha: 2026-11-27
+  hallazgos:
+    - Las primeras posiciones de "ayudas rehabilitación Madrid" las ocupan webs oficiales (Ayuntamiento, Comunidad, BOCM) y prensa; casi no hay guías prácticas de un especialista.
+    - Lo que explican las fuentes oficiales son tablas y plazos; falta el "cómo se hace" para una comunidad de propietarios (acuerdo de junta, representante, IEE, orden de pasos).
+    - La prensa (eldiario, cronista, idealista) posiciona titulares con cifra y plazo ("hasta 18.800 euros", "hasta el 90 %", "plazo termina en septiembre").
+    - Cada convocatoria nueva genera un pico de búsquedas con plazo cerrado; el contenido evergreen con revisión periódica aguanta mejor.
+  formatos_que_funcionan:
+    - Titular con cifra o plazo concreto y fecha de actualización visible.
+    - Guía paso a paso para comunidades de propietarios.
+    - Comparativa entre programas (qué ayuda elegir según tipo de obra).
+    - Preguntas frecuentes sobre requisitos y documentación.
+
+temas:
+  - id: deduccion-irpf-eficiencia-energetica
+    tema: Deducción de IRPF por obras de eficiencia energética (20 %, 40 % y 60 %)
+    keyword: deducción irpf obras eficiencia energética
+    intencion: informacional
+    prioridad: 1
+    estado: publicado
+    caduca: 2026-12-31
+    revisar: 2027-01-15
+    articulo: deduccion-irpf-eficiencia-energetica-2026
+    fuentes:
+      - https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764
+      - https://sede.agenciatributaria.gob.es
+    notas: Verificado en BOE consolidado (DA 50ª LIRPF, redacción por RD-ley 29/2026). Urgente, el certificado posterior de viviendas individuales debe expedirse antes del 1/1/2027.
+    tags: [irpf, eficiencia-energetica]
+
+  - id: ayudas-rehabilitacion-edificios-madrid-guia
+    tema: Guía de ayudas a la rehabilitación de edificios en Madrid (Rehabilita, PRTR, Plan Estatal)
+    keyword: ayudas rehabilitación edificios madrid
+    intencion: informacional
+    prioridad: 1
+    estado: verificando
+    fuentes:
+      - https://sede.madrid.es/UnidadesDescentralizadas/ViviendaWeb/PLANREHABILITAMADRID2026/Ficheros/GuiaRapidaPlanRehabilita2026.pdf
+      - https://www.boe.es/eli/es/rd/2026/04/22/326
+    notas: Plan Rehabilita Madrid 2026 cerró el 30/09/2026; confirmar en BOCM si hay convocatoria nueva antes de publicar cifras.
+    tags: [madrid, rehabilitacion]
+
+  - id: comunidad-propietarios-pasos-subvencion
+    tema: Cómo pedir una subvención de rehabilitación siendo comunidad de propietarios
+    keyword: subvención rehabilitación comunidad de propietarios
+    intencion: informacional
+    prioridad: 1
+    estado: idea
+    notas: Acuerdo de junta, representante con poderes, IEE, presupuesto. Es el hueco que no cubren las fuentes oficiales.
+    tags: [comunidades, rehabilitacion]
+
+  - id: iee-informe-evaluacion-edificio-madrid
+    tema: Informe de Evaluación del Edificio (IEE) en Madrid, qué es y cuándo hace falta
+    keyword: informe evaluación edificio madrid
+    intencion: informacional
+    prioridad: 2
+    estado: idea
+    tags: [madrid, comunidades]
+
+  - id: plan-estatal-vivienda-2026-2030-rehabilitacion
+    tema: Plan Estatal de Vivienda 2026-2030, qué cambia para rehabilitar
+    keyword: plan estatal vivienda 2026-2030 rehabilitación
+    intencion: informacional
+    prioridad: 2
+    estado: idea
+    fuentes:
+      - https://www.boe.es/eli/es/rd/2026/04/22/326
+    tags: [plan-estatal, rehabilitacion]
+
+  - id: que-ayuda-elegir-segun-obra
+    tema: Comparativa, qué ayuda elegir según el tipo de obra (accesibilidad, conservación, eficiencia)
+    keyword: ayudas rehabilitación accesibilidad conservación eficiencia
+    intencion: comparativa
+    prioridad: 2
+    estado: idea
+    tags: [rehabilitacion, comparativa]
+
+  - id: ayudas-ascensor-madrid
+    tema: Ayudas para instalar ascensor en comunidades de Madrid
+    keyword: ayudas ascensor comunidad madrid
+    intencion: informacional
+    prioridad: 3
+    estado: idea
+    tags: [madrid, comunidades]

@@ -7,7 +7,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "mocha --recursive --exit",
-    "build:blog": "node scripts/build-blog.js"
+    "build:blog": "node scripts/build-blog.js",
+    "radar": "node scripts/radar.js"
   },
   "dependencies": {
     "axios": "^1.6.0",
